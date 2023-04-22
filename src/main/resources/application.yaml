@@ -15,7 +15,7 @@ cloud:
 awsConfig:
   accessKey: x
   secretKey: x
-  sqsQueueName: jagadheesh_queue
+  sqsQueueName: sqs-queue-name
 queueBuffer:
   maxBatchOpenMs: 200  #Maximum amount of time, in milliseconds, that an outgoing call waits for other calls of the same type to batch with
   maxBatchSize: 10  #The maximum number of messages that will be batched together in a single batch request

@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Profile("local")
 public class SqsServiceImplTest {
@@ -45,7 +46,7 @@ public class SqsServiceImplTest {
         sqsMappingProperties.setAwsConfig(buildAwsConfig());
         queueMessagingTemplate = new QueueMessagingTemplate(awsSQSAsyncClient);
         queueMessagingTemplate.setDefaultDestinationName(QUEUE_NAME);
-        classUnderTest = new SqsService();
+        classUnderTest = new SqsService(sqsMappingProperties,queueMessagingTemplate);
         ReflectionTestUtils.setField(classUnderTest, "sqsConfigMappingProperties", sqsMappingProperties, SqsConfigMappingProperties.class);
         ReflectionTestUtils.setField(classUnderTest, "queueMessagingTemplate", queueMessagingTemplate, QueueMessagingTemplate.class);
     }
@@ -54,12 +55,12 @@ public class SqsServiceImplTest {
         if(sqsRestServer != null)
             sqsRestServer.stopAndWait();
     }
-    /*@Test
+    @Test
     public void givenValidPriceChange_whenSendSqsMsg_theVerifyReceivedMsg() throws Exception {
-        classUnderTest.sendSqsMessage(buildPricingChange());
-        PricingChange actualResponse = queueMessagingTemplate.receiveAndConvert(QUEUE_NAME,PricingChange.class);
-        assertEquals(EXPECTED_SELLING_PRICE, actualResponse.getSellingPrice().getAmount());
-    }*/
+        classUnderTest.sendSqsMessage("Test message");
+        String actualResponse = queueMessagingTemplate.receiveAndConvert(QUEUE_NAME,String.class);
+        assertTrue(actualResponse.contains("Test message"));
+    }
     public AwsMappedProperties buildAwsConfig() {
         AwsMappedProperties awsConfig = new AwsMappedProperties();
         awsConfig.setSqsQueueName(QUEUE_NAME);

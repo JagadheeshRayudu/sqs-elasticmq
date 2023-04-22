@@ -7,9 +7,9 @@ import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
 import com.amazonaws.services.sqs.buffered.AmazonSQSBufferedAsyncClient;
 import com.amazonaws.services.sqs.buffered.QueueBufferConfig;
+import lombok.RequiredArgsConstructor;
 import org.elasticmq.rest.sqs.SQSRestServer;
 import org.elasticmq.rest.sqs.SQSRestServerBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,13 +23,13 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Configuration
 @EnableConfigurationProperties(SqsConfigMappingProperties.class)
+@RequiredArgsConstructor
 public class ElasticMQConfig {
     @Value("${aws.local.sqs.localElasticMq.enable}")
     Boolean enableLocalElasticMq;
     @Value("${aws.local.sqs.localElasticMq.startServer}")
     Boolean startLocalElasticMq;
-    @Autowired
-    SqsConfigMappingProperties sqsConfigMappingProperties;
+    private final SqsConfigMappingProperties sqsConfigMappingProperties;
     @Value("${spring.profiles.active}")
     private String env;
 
