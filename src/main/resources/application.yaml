@@ -1,0 +1,42 @@
+cloud:
+  aws:
+    region:
+      static: us-east-1
+    stack:
+      auto: false
+    credentials:
+      access-key: test
+      secret-key: test
+    sqs:
+      endpoint: http://localhost:9324
+
+
+#===============================================================================
+awsConfig:
+  accessKey: x
+  secretKey: x
+  sqsQueueName: jagadheesh_queue
+queueBuffer:
+  maxBatchOpenMs: 200  #Maximum amount of time, in milliseconds, that an outgoing call waits for other calls of the same type to batch with
+  maxBatchSize: 10  #The maximum number of messages that will be batched together in a single batch request
+  maxInflightOutboundBatches: 5  #The maximum number of active receive batches that can be processed at the same time
+elasticMqLocalSqsUri:
+  scheme: http
+  host: localhost
+  path:
+  port: 9324
+awsSqsUri:
+  scheme: https
+  host: sqs.us-east-1.amazonaws.com
+  path: /1234567890/
+  port: 80
+echoSqsMessagesLocal: false
+
+#===============================================================================
+
+aws:
+  local:
+    sqs:
+      localElasticMq:
+        enable: true
+        startServer: false
