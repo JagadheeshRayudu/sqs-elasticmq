@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class DomainObjectIngestController {
+public class Controller {
     private final SqsService sqsService;
     @PostMapping
     public ResponseEntity<?> postDomainObject(@RequestBody String message) {

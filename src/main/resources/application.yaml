@@ -39,4 +39,4 @@ aws:
     sqs:
       localElasticMq:
         enable: true
-        startServer: false
+        startServer: true
